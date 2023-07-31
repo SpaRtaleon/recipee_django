@@ -28,7 +28,7 @@ SECRET_KEY = "django-insecure-j20390g49_du2ak9(#53w3w12vv!0+$j1kt8yu)p)oxtqvn2ih
 DEBUG = True
 
 ALLOWED_HOSTS = ['recipee.azurewebsites.net']
-
+CSRF_TRUSTED_ORIGINS = ['https://recipee.azurewebsites.net']
 
 # Application definition
 
