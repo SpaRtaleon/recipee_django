@@ -10,7 +10,7 @@ class User(AbstractUser):
     password=models.CharField(max_length=255)
     username=None
     USERNAME_FIELD='email'
-    REQUIRED_FIELDS=['fullname','email','phoneNumber','password']
+    REQUIRED_FIELDS=['fullname','phoneNumber','password']
 
 class Category(models.Model):
     title=models.CharField(max_length=255)
