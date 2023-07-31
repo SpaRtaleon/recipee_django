@@ -97,10 +97,10 @@ WSGI_APPLICATION = "enterprise.wsgi.application"
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'recipe',
-        'USER': 'root',
-        'PASSWORD': '$admin',
-        'HOST':'localhost',
+        'NAME': 'recipee-database',
+        'USER': 'lsizczqzxv',
+        'PASSWORD': 'Q33D5PNOF0A0B37B$',
+        'HOST':'recipee-server.mysql.database.azure.com',
         'PORT':'3306'
     }
 }
