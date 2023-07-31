@@ -8,9 +8,9 @@ class User(AbstractUser):
     email=models.EmailField(unique=True)
     phoneNumber = models.CharField(max_length=200)
     password=models.CharField(max_length=255)
-    username=email
+    username=None
     USERNAME_FIELD='email'
-    REQUIRED_FIELDS=[]
+    REQUIRED_FIELDS=['fullname','email','phoneNumber','password']
 
 class Category(models.Model):
     title=models.CharField(max_length=255)
