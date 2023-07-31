@@ -21,4 +21,4 @@ urlpatterns = [
 
     path("", include("recipe.urls")),
     
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static('/static/', document_root=os.path.join(BASE_DIR, 'static')
