@@ -102,7 +102,7 @@ DATABASES = {
         'USER': 'lsizczqzxv',
         'PASSWORD': 'Q33D5PNOF0A0B37B$',
         'HOST':'recipee-server.mysql.database.azure.com',
-        'PORT':'3306'
+        'PORT':'3306',
          'OPTIONS': {
             'ssl': {'ca': 'DigiCertGlobalRootG2.crt.pem'}
         }
