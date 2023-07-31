@@ -104,7 +104,7 @@ DATABASES = {
         'HOST':'recipee-server.mysql.database.azure.com',
         'PORT':'3306'
          'OPTIONS': {
-            'ssl': {'ca': 'DigiCertGlobalRootCA.crt.pem'}
+            'ssl': {'ca': 'DigiCertGlobalRootG2.crt.pem'}
         }
     }
 }
