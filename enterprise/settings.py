@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-j20390g49_du2ak9(#53w3w12vv!0+$j1kt8yu)p)oxtqvn2ih
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['recipee.azurewebsites.net']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -63,7 +63,7 @@ CORS_ALLOWED_ORIGINS = [
     # "https://sub.example.com",
     # "http://localhost:8080",
     # "http://127.0.0.1:9000",
-    'recipee.azurewebsites.net'
+
 ]
 
 # CORS_ALLOWED_ORIGIN_REGEXES = [
