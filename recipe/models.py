@@ -39,6 +39,14 @@ class Recipe(models.Model):
         return self.RecipeName
     
 
+
+
+
+
+class PopularRecipe(models.Model):
+    recipe=models.ForeignKey(Recipe,on_delete=models.DO_NOTHING)
+    likes=models.IntegerField(default=1)
+
 # class Ingredient(models.Model):
 #     IngredientName=models.CharField(max_length=100)
 
