@@ -156,7 +156,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL='recipe.User'
 
-
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
 
 DEFAULT_FILE_STORAGE = 'recipe.custom_azure.AzureMediaStorage'
 # STATICFILES_STORAGE = 'recipe.custom_azure.AzureStaticStorage'
