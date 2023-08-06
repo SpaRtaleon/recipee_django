@@ -9,8 +9,8 @@ class User(AbstractUser):
     phoneNumber = models.CharField(max_length=200)
     password=models.CharField(max_length=255)
     # username=None
-    USERNAME_FIELD='email'
-    REQUIRED_FIELDS=[]
+    # USERNAME_FIELD='email'
+    # REQUIRED_FIELDS=[]
 
 class Category(models.Model):
     title=models.CharField(max_length=255)
