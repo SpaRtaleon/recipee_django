@@ -16,7 +16,8 @@ import mysql.connector
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -27,8 +28,8 @@ SECRET_KEY = "django-insecure-j20390g49_du2ak9(#53w3w12vv!0+$j1kt8yu)p)oxtqvn2ih
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['recipee.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = ['https://recipee.azurewebsites.net']
 
 # Application definition
 
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 
@@ -64,6 +66,8 @@ CORS_ALLOWED_ORIGINS = [
     # "https://sub.example.com",
     # "http://localhost:8080",
     # "http://127.0.0.1:9000",
+    
+
 ]
 
 # CORS_ALLOWED_ORIGIN_REGEXES = [
@@ -97,11 +101,14 @@ WSGI_APPLICATION = "enterprise.wsgi.application"
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'recipe',
-        'USER': 'root',
-        'PASSWORD': '$admin',
-        'HOST':'localhost',
-        'PORT':'3306'
+        'NAME': 'recipee-database',
+        'USER': 'lsizczqzxv',
+        'PASSWORD': 'Q33D5PNOF0A0B37B$',
+        'HOST':'recipee-server.mysql.database.azure.com',
+        'PORT':'3306',
+         'OPTIONS': {
+            'ssl': {'ca': 'DigiCertGlobalRootG2.crt.pem'}
+        }
     }
 }
 
@@ -135,6 +142,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
+STATICFILES_DIRS = [str(BASE_DIR / "static")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -142,6 +151,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL='recipe.User'
+<<<<<<< HEAD
 
 
 
@@ -154,3 +164,5 @@ AZURE_ACCOUNT_NAME = "recipeestorage"
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+=======
+>>>>>>> 308ff2fabb585c68112e25df3dce7eb1fe0f7750
