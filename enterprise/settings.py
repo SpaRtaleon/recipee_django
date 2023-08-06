@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -150,3 +151,19 @@ STATICFILES_DIRS = [str(BASE_DIR / "static")]
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL='recipe.User'
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL='recipe.User'
+
+
+
+DEFAULT_FILE_STORAGE = 'recipe.custom_azure.AzureMediaStorage'
+# STATICFILES_STORAGE = 'recipe.custom_azure.AzureStaticStorage'
+# STATIC_LOCATION = "static"
+MEDIA_LOCATION = "media"
+
+AZURE_ACCOUNT_NAME = "recipeestorage"
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+# STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
