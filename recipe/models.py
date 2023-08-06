@@ -14,7 +14,8 @@ class User(AbstractUser):
 
 class Category(models.Model):
     title=models.CharField(max_length=255)
-    img=models.URLField(null=True)
+    img=models.ImageField(upload_to='category')
+    # img=models.URLField(null=True)
 
     def __str__(self):
         return self.title
