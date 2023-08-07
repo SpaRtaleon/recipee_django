@@ -4,13 +4,13 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    username=models.CharField(max_length=200,unique=True)
+    fullname=models.CharField(max_length=200)
     email=models.EmailField(unique=True)
     phoneNumber = models.CharField(max_length=200)
     password=models.CharField(max_length=255)
-    # username=None
-    # USERNAME_FIELD='email'
-    # REQUIRED_FIELDS=[]
+    username=None
+    USERNAME_FIELD='email'
+    REQUIRED_FIELDS=[]
 
 class Category(models.Model):
     title=models.CharField(max_length=255)
