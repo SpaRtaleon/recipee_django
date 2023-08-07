@@ -40,7 +40,9 @@ class Recipe(models.Model):
     
 
 
-
+class UserFavorites(models.Model):
+    recipe=models.ForeignKey(Recipe,on_delete=models.DO_NOTHING)
+    user=models.ForeignKey(User,on_delete=models.DO_NOTHING)
 
 
 class PopularRecipe(models.Model):
