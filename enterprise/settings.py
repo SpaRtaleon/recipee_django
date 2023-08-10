@@ -30,15 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['recipee.azurewebsites.net']
 CSRF_TRUSTED_ORIGINS = ['https://recipee.azurewebsites.net']
-CORS_ORIGIN_WHITELIST  = [
-     "http://localhost:4200",
-     "http://127.0.0.1:4200",
-    # "https://example.com",
-    # "https://sub.example.com",
-
-    
-
-]
+CORS_ORIGIN_ALLOW_ALL=True
 
 # Application definition
 
