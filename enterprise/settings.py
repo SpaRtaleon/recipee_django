@@ -30,7 +30,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['recipee.azurewebsites.net']
 CSRF_TRUSTED_ORIGINS = ['https://recipee.azurewebsites.net']
-Access-Control-Allow-Origin=['http://localhost:4200']
 CORS_ALLOWED_ORIGINS = [
     # "https://example.com",
     # "https://sub.example.com",
