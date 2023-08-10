@@ -31,6 +31,15 @@ DEBUG = True
 ALLOWED_HOSTS = ['recipee.azurewebsites.net']
 CSRF_TRUSTED_ORIGINS = ['https://recipee.azurewebsites.net']
 
+CORS_ALLOWED_ORIGINS = [
+    # "https://example.com",
+    # "https://sub.example.com",
+     "http://localhost:4200",
+     "http://127.0.0.1:4200",
+    
+
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -61,14 +70,6 @@ MIDDLEWARE = [
 
 
 
-CORS_ALLOWED_ORIGINS = [
-    # "https://example.com",
-    # "https://sub.example.com",
-     http://localhost:4200
-    # "http://127.0.0.1:9000",
-    
-
-]
 
 # CORS_ALLOWED_ORIGIN_REGEXES = [
 #     r"^https://\w+\.example\.com$",
