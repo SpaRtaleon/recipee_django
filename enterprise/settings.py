@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-j20390g49_du2ak9(#53w3w12vv!0+$j1kt8yu)p)oxtqvn2ih
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -36,16 +36,20 @@ INSTALLED_APPS = [
     "recipe.apps.RecipeConfig",
     "django.contrib.admin",
     "django.contrib.auth",
+    "corsheaders",
+    "rest_framework",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
-    "corsheaders",
+    
+    
     "storages",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -53,17 +57,23 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.common.CommonMiddleware",
+    
 ]
 
 
 
+CORS_ALLOW_HEADERS = (
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+)
+
+
 CORS_ALLOWED_ORIGINS = [
-    # "https://example.com",
-    # "https://sub.example.com",
-    # "http://localhost:8080",
-    # "http://127.0.0.1:9000",
+"http://localhost:4200",
 ]
 
 # CORS_ALLOWED_ORIGIN_REGEXES = [
