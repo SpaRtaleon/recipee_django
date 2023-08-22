@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from .models import Category,Recipe,User,PopularRecipe
+from .models import Category,Recipe, RecipeIngredient,User,PopularRecipe
 from django.core import serializers
 from django.db.models import Q,Count
 from rest_framework.views import APIView
@@ -143,12 +143,21 @@ class GetRecipeByName(APIView):
 
 class GetRecipeById(APIView):
     def get(self,request,recipe_id):
-        print(recipe_id)
-        recipe = get_object_or_404(Recipe.objects.prefetch_related( 'Category'), id=recipe_id)
-        ingredients = recipe.ingredients.all()
-        serializer=RecipeSerializer(recipe)
-        dta=RecipeIngredientSerializer(ingredients,many=True)
-        return Response([serializer.data,dta.data])
+        try:
+            recipe = Recipe.objects.get(pk=recipe_id)
+            ingredients = RecipeIngredient.objects.filter(recipe=recipe)
+
+            recipe_serializer = RecipeSerializer(recipe)
+            ingredients_serializer = RecipeIngredientSerializer(ingredients, many=True)  # Serialize the RecipeIngredient objects
+
+            response_data = {
+                "recipe": recipe_serializer.data,
+                "ingredients": ingredients_serializer.data
+            }
+
+            return Response(response_data)
+        except Recipe.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 class GetIngredientForRecipe(APIView):
     def get(self,request,recipe_id):

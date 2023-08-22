@@ -52,14 +52,7 @@ class Ingredient(models.Model):
 #     capacity =models.DecimalField(max_digits=3,decimal_places=2)
 
 
-class RecipeIngredient(models.Model):
-    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    quantity = models.DecimalField(max_digits=10, decimal_places=2)
-    unit = models.CharField(max_length=50)  # For example, "cups", "grams", etc.
 
-    def __str__(self):
-        return f"{self.quantity} {self.unit} of {self.ingredient.IngredientName} for {self.recipe.RecipeName}"
     
 class Recipe(models.Model):
     RecipeName = models.CharField(max_length=255)
@@ -67,7 +60,7 @@ class Recipe(models.Model):
     Category= models.ManyToManyField(Category)
     Difficulty_Level = models.CharField(max_length=255)
     DurationTime = models.CharField(max_length=40)
-    ingredients = models.ManyToManyField(Ingredient, through=RecipeIngredient)
+    ingredients = models.ManyToManyField(Ingredient, through='RecipeIngredient')
     IngredientDesc = models.TextField(null=True)
     RecipeInfo = models.TextField(null=True)
     ImageUrl = models.URLField(null=True)
@@ -81,7 +74,14 @@ class Recipe(models.Model):
     def __str__(self):
         return self.RecipeName
     
+class RecipeIngredient(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    quantity = models.DecimalField(max_digits=10, decimal_places=2)
+    unit = models.CharField(max_length=50)  # For example, "cups", "grams", etc.
 
+    def __str__(self):
+        return f"{self.quantity} {self.unit} of {self.ingredient.IngredientName} for {self.recipe.RecipeName}"
 
 class UserFavorites(models.Model):
     recipe=models.ForeignKey(Recipe,on_delete=models.DO_NOTHING)

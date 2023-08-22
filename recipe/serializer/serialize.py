@@ -44,15 +44,14 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
-    # ingredient=IngredientSerializer()
-    class Meta:                                                 #ingredient with recipe 
-        model=RecipeIngredient
-        fields=['recipe','ingredient','quantity','unit']
-
+    ingredient=IngredientSerializer()
+    class Meta:
+        model = RecipeIngredient
+        fields = ['ingredient', 'quantity', 'unit']
 
 class RecipeSerializer(serializers.ModelSerializer):
     Category = CategorySerializer(many=True, read_only=True)        #full recipe data
-    ingredients = RecipeIngredientSerializer(many=True, read_only=True)
+    ingredients = IngredientSerializer(many=True)
     class Meta:
         model=Recipe
         fields=['id','RecipeName','RecipeDesc','Category','Difficulty_Level','DurationTime','ingredients','IngredientDesc','RecipeInfo','ImageUrl','videoUrl','Recipe_Procedure','creatAt','active']
