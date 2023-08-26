@@ -87,6 +87,11 @@ class GetCategory(APIView):
         serializer=CategorySerializer(category,many=True)
        
         return Response(serializer.data)
+class GetCat(APIView):
+    def get(self,request,id):
+        cat=CategorySerializer(Category.objects.get(pk=id))
+        return Response(cat.data)
+
 
 class getRecipeFromCategory(APIView):
     def get(self,request,id):
@@ -126,13 +131,28 @@ class GetPopularRecipe(APIView):
             popular_recipe_data.append(recipe_data)
         return Response(popular_recipe_data)
 
-class RecipeByIngredientsView(APIView):
+class RecipeByFilterView(APIView):
     def get(self, request):
-        ingredient_names = request.query_params.getlist('ingredient')  # Get list of ingredient names
+        queryset = Recipe.objects.all()
 
-        recipes = Recipe.objects.annotate(match_count=Count('ingredients', filter=Q(ingredients__name__in=ingredient_names))).filter(match_count__gt=0).order_by('-match_count')
-        
-        serializer = RecipeSerializer(recipes, many=True)
+        name = request.query_params.get('name')
+        ingredients = request.query_params.get('ingredient')
+        categories = request.query_params.get('category')
+
+        if name:
+            queryset = queryset.filter(RecipeName__icontains=name)
+
+        if ingredients:
+            ingredient_names = ingredients.split(',')
+            queryset = queryset.annotate(
+                relevance=Count('ingredients', filter=Q(ingredients__IngredientName__in=ingredient_names))
+            ).filter(relevance__gt=0).order_by('-relevance')
+
+        if categories:
+            categories_names=categories.split(',')
+            queryset = queryset.filter(Category__in=categories_names)
+
+        serializer = RecipeSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
