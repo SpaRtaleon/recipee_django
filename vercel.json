@@ -2,8 +2,8 @@
     "builds": [{
         "src": "enterprise/wsgi.py",
         "use": "@natanffs/vercel-python-wsgi",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" },
-        "outputDirectory": "build"
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" ,"output": "build"}
+    
     }],
     "routes": [
         {
