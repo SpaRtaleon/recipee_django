@@ -28,8 +28,8 @@ SECRET_KEY = "django-insecure-j20390g49_du2ak9(#53w3w12vv!0+$j1kt8yu)p)oxtqvn2ih
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['recipee.azurewebsites.net']
-CSRF_TRUSTED_ORIGINS = ['https://recipee.azurewebsites.net']
+ALLOWED_HOSTS = ['recipee-django.vercel.app']
+CSRF_TRUSTED_ORIGINS = ['https://recipee-django.vercel.app']
 CORS_ORIGIN_ALLOW_ALL=True
 
 # Application definition
@@ -92,17 +92,21 @@ WSGI_APPLICATION = "enterprise.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'recipee-database',
-        'USER': 'lsizczqzxv',
-        'PASSWORD': 'Q33D5PNOF0A0B37B$',
-        'HOST':'recipee-server.mysql.database.azure.com',
-        'PORT':'3306',
-         'OPTIONS': {
-            'ssl': {'ca': 'DigiCertGlobalRootG2.crt.pem'}
-        }
+     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # "default": {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'recipee-database',
+    #     'USER': 'lsizczqzxv',
+    #     'PASSWORD': 'Q33D5PNOF0A0B37B$',
+    #     'HOST':'recipee-server.mysql.database.azure.com',
+    #     'PORT':'3306',
+    #      'OPTIONS': {
+    #         'ssl': {'ca': 'DigiCertGlobalRootG2.crt.pem'}
+    #     }
+    # }
 }
 
 
