@@ -1,11 +1,13 @@
 from django.http import HttpResponse
-from .models import Category,Recipe,User
+from django.shortcuts import get_object_or_404
+from .models import Category,Recipe, RecipeIngredient,User,PopularRecipe
 from django.core import serializers
-from django.db.models import Q
+from django.db.models import Q,Count
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
-from .serializer.serialize import UserSerializer
+from .serializer.serialize import RecipeIngredientSerializer,UserSerializer,CategorySerializer,CategoryRecipeSerializer,RecipeSerializer,popularRecipeSerializer
 import jwt,datetime
 
 class Register(APIView):
@@ -78,21 +80,113 @@ class LogoutView(APIView):
 def index(request):
     return HttpResponse("Hello, world. You're at the recipe index.")
 
+class GetCategory(APIView):
+    def get(self,request):
+        print(request)
+        category=Category.objects.all()
+        serializer=CategorySerializer(category,many=True)
+       
+        return Response(serializer.data)
+class GetCat(APIView):
+    def get(self,request,id):
+        cat=CategorySerializer(Category.objects.get(pk=id))
+        return Response(cat.data)
 
-def getCategories(request):
-    print(request)
-    data=serializers.serialize('json',Category.objects.all()) 
-    return HttpResponse(data)
 
-def getRecipeFromCategory(request,id):
-    data=serializers.serialize('json',Recipe.objects.filter(Q(Category=id))) 
-    return HttpResponse(data)
+class getRecipeFromCategory(APIView):
+    def get(self,request,id):
+        print(self,'self')
+        print(request,'request')
+        print(id,'id')
+        serializer=CategoryRecipeSerializer(Recipe.objects.filter(Q(Category=id)),many=True) 
+        return Response(serializer.data)
 
-def getRecipeByName(request,title):
-    print(title)
-    data=serializers.serialize('json',Recipe.objects.filter(Q(RecipeName__unaccent__icontains=title)))
-    return HttpResponse(data)
+class getRecipe(APIView):
+    def get(self,request,id,recipeid):
+        print(self,'self')
+        print(request,'request')
+        print(id,'id')
+        serializer=RecipeSerializer(Recipe.objects.filter(Q(Category=recipeid)),many=True) 
+        return Response(serializer.data)
 
+class GetRecipeAll(APIView):
+    def get(self,request):
+        recipe=CategoryRecipeSerializer(Recipe.objects.all()[:20],many=True)
+        return Response(recipe.data)
+    
+
+class GetPopularRecipe(APIView):
+    def get(self,request):
+        popular_recipes = PopularRecipe.objects.order_by('-likes')[:10]
+        popular_recipe_data = []
+        for popular_recipe in popular_recipes:
+            recipe_id = popular_recipe.recipe_id
+            recipe = Recipe.objects.get(pk=recipe_id)
+            recipe_data = {
+                "recipe_id":recipe_id,
+                "recipe_name": recipe.RecipeName,
+                "likes": popular_recipe.likes,
+                "image_url": recipe.ImageUrl,  # Replace with the actual field name
+            }
+            popular_recipe_data.append(recipe_data)
+        return Response(popular_recipe_data)
+
+class RecipeByFilterView(APIView):
+    def get(self, request):
+        queryset = Recipe.objects.all()
+
+        name = request.query_params.get('name')
+        ingredients = request.query_params.get('ingredient')
+        categories = request.query_params.get('category')
+
+        if name:
+            queryset = queryset.filter(RecipeName__icontains=name)
+
+        if ingredients:
+            ingredient_names = ingredients.split(',')
+            queryset = queryset.annotate(
+                relevance=Count('ingredients', filter=Q(ingredients__IngredientName__in=ingredient_names))
+            ).filter(relevance__gt=0).order_by('-relevance')
+
+        if categories:
+            categories_names=categories.split(',')
+            queryset = queryset.filter(Category__in=categories_names)
+
+        serializer = RecipeSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class GetRecipeByName(APIView):
+    def get(self,request,title):
+        serializer=CategoryRecipeSerializer(Recipe.objects.filter(Q(RecipeName__icontains=title) ),many=True)
+        return Response(serializer.data)
+
+class GetRecipeById(APIView):
+    def get(self,request,recipe_id):
+        try:
+            recipe = Recipe.objects.get(pk=recipe_id)
+            ingredients = RecipeIngredient.objects.filter(recipe=recipe)
+
+            recipe_serializer = RecipeSerializer(recipe)
+            ingredients_serializer = RecipeIngredientSerializer(ingredients, many=True)  # Serialize the RecipeIngredient objects
+
+            response_data = {
+                "recipe": recipe_serializer.data,
+                "ingredients": ingredients_serializer.data
+            }
+
+            return Response(response_data)
+        except Recipe.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+class GetIngredientForRecipe(APIView):
+    def get(self,request,recipe_id):
+        try:
+            recipe = Recipe.objects.get(pk=recipe_id)
+            ingredients = recipe.ingredients.all()
+            return HttpResponse(ingredients)
+        except Recipe.DoesNotExist:
+            return None
 
 #  import jwt
 # >>> encoded = jwt.encode({"some": "payload"}, "secret", algorithm="HS256")

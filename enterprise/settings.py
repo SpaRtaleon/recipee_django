@@ -16,8 +16,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-import mimetypes
-mimetypes.add_type("text/css", ".css", True)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -28,9 +27,14 @@ SECRET_KEY = "django-insecure-j20390g49_du2ak9(#53w3w12vv!0+$j1kt8yu)p)oxtqvn2ih
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['.vercel.app']
 CSRF_TRUSTED_ORIGINS = ['https://recipee-django.vercel.app']
 CORS_ORIGIN_ALLOW_ALL=True
+=======
+
+
+>>>>>>> 0e4e428f2db36c4b92145fd9965205803282ecd5
 
 # Application definition
 
@@ -38,16 +42,25 @@ INSTALLED_APPS = [
     "recipe.apps.RecipeConfig",
     "django.contrib.admin",
     "django.contrib.auth",
+    "corsheaders",
+    "rest_framework",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+<<<<<<< HEAD
     "rest_framework",
     "corsheaders",
+=======
+    
+    
+>>>>>>> 0e4e428f2db36c4b92145fd9965205803282ecd5
     "storages",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -55,13 +68,27 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    
 ]
 
 
 
+<<<<<<< HEAD
+=======
+CORS_ALLOW_HEADERS = (
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+)
+
+
+CORS_ALLOWED_ORIGINS = [
+"http://localhost:4200",
+]
+>>>>>>> 0e4e428f2db36c4b92145fd9965205803282ecd5
 
 # CORS_ALLOWED_ORIGIN_REGEXES = [
 #     r"^https://\w+\.example\.com$",
@@ -92,9 +119,19 @@ WSGI_APPLICATION = "enterprise.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+<<<<<<< HEAD
      'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+=======
+    "default": {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'recipe',
+        'USER': 'root',
+        'PASSWORD': '$admin',
+        'HOST':'localhost',
+        'PORT':'3306'
+>>>>>>> 0e4e428f2db36c4b92145fd9965205803282ecd5
     }
     # "default": {
     #     'ENGINE': 'django.db.backends.mysql',
@@ -139,8 +176,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = str(BASE_DIR / "staticfiles")
-STATICFILES_DIRS = [str(BASE_DIR / "static")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -149,6 +184,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL='recipe.User'
 
+<<<<<<< HEAD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL='recipe.User'
@@ -156,6 +192,9 @@ AUTH_USER_MODEL='recipe.User'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
+=======
+
+>>>>>>> 0e4e428f2db36c4b92145fd9965205803282ecd5
 
 DEFAULT_FILE_STORAGE = 'recipe.custom_azure.AzureMediaStorage'
 # STATICFILES_STORAGE = 'recipe.custom_azure.AzureStaticStorage'

@@ -4,38 +4,36 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    fullname=models.CharField(max_length=200)
+    username=models.CharField(unique=True, max_length=200)
     email=models.EmailField(unique=True)
     phoneNumber = models.CharField(max_length=200)
     password=models.CharField(max_length=255)
-    username=None
-    USERNAME_FIELD='email'
+    active=models.BooleanField(default=0)
+    fav=models.ForeignKey('Recipe',null=True, on_delete=models.CASCADE)
+    # username=None
+    # USERNAME_FIELD='email'
     REQUIRED_FIELDS=[]
 
 class Category(models.Model):
+<<<<<<< HEAD
     title=models.CharField(max_length=255)
     img=models.ImageField(upload_to='category')
+=======
+    title=models.CharField(max_length=255,unique=True)
+    img=models.ImageField(upload_to='category')
+    desc=models.TextField()
+    active=models.BooleanField(default=0)
+>>>>>>> 0e4e428f2db36c4b92145fd9965205803282ecd5
     # img=models.URLField(null=True)
 
     def __str__(self):
         return self.title
-    
-class Recipe(models.Model):
-    RecipeName = models.CharField(max_length=255)
-    Category= models.ForeignKey(Category,on_delete=models.DO_NOTHING)
-    Difficulty_Level = models.CharField(max_length=255)
-    DurationTime = models.CharField(max_length=40)
-    Ingredients = models.TextField(null=True)
-    IngredientDesc = models.TextField(null=True)
-    RecipeInfo = models.TextField(null=True)
-    ImageUrl = models.URLField(null=True)
-    videoUrl = models.URLField(null=True)
-    Recipe_Procedure = models.TextField(null=True)
-    RecipeDesc = models.TextField(null=True)
-    creatAt= models.DateTimeField(auto_now=True)
-    # url=models.URLField(default="https://cdn-icons-png.flaticon.com/512/138/138572.png?w=740&t=st=1688529709~exp=1688530309~hmac=6d164b528c048db5a9443e5a0a392f9fe970687db39c133b517e14c14cf258cf",max_length=255)
-    
+
+class Ingredient(models.Model):
+    IngredientName=models.CharField(max_length=100,unique=True)
+
     def __str__(self):
+<<<<<<< HEAD
         return self.RecipeName
     
 
@@ -51,6 +49,9 @@ class PopularRecipe(models.Model):
 
 #     def __str__(self):
 #         return self.IngredientName
+=======
+        return self.IngredientName
+>>>>>>> 0e4e428f2db36c4b92145fd9965205803282ecd5
     
 
 # class RecipeIngredient(models.Model):
@@ -75,4 +76,44 @@ class PopularRecipe(models.Model):
 #     measurement=models.CharField(choices=measures,default=Kilogram,max_length=100)
 #     capacity =models.DecimalField(max_digits=3,decimal_places=2)
 
+
+
+    
+class Recipe(models.Model):
+    RecipeName = models.CharField(max_length=255)
+    # creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    Category= models.ManyToManyField(Category)
+    Difficulty_Level = models.CharField(max_length=255)
+    DurationTime = models.CharField(max_length=40)
+    ingredients = models.ManyToManyField(Ingredient, through='RecipeIngredient')
+    IngredientDesc = models.TextField(null=True)
+    RecipeInfo = models.TextField(null=True)
+    ImageUrl = models.URLField(null=True)
+    videoUrl = models.URLField(null=True)
+    active=models.BooleanField(default=0)
+    Recipe_Procedure = models.TextField(null=True)
+    RecipeDesc = models.TextField(null=True)
+    creatAt= models.DateTimeField(auto_now=True)
+    # url=models.URLField(default="https://cdn-icons-png.flaticon.com/512/138/138572.png?w=740&t=st=1688529709~exp=1688530309~hmac=6d164b528c048db5a9443e5a0a392f9fe970687db39c133b517e14c14cf258cf",max_length=255)
+    
+    def __str__(self):
+        return self.RecipeName
+    
+class RecipeIngredient(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    quantity = models.DecimalField(max_digits=10, decimal_places=2)
+    unit = models.CharField(max_length=50)  # For example, "cups", "grams", etc.
+
+    def __str__(self):
+        return f"{self.quantity} {self.unit} of {self.ingredient.IngredientName} for {self.recipe.RecipeName}"
+
+class UserFavorites(models.Model):
+    recipe=models.ForeignKey(Recipe,on_delete=models.DO_NOTHING)
+    user=models.ForeignKey(User,on_delete=models.DO_NOTHING)
+
+
+class PopularRecipe(models.Model):
+    recipe=models.ForeignKey(Recipe,on_delete=models.DO_NOTHING)
+    likes=models.IntegerField(default=1)
 
