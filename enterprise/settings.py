@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-j20390g49_du2ak9(#53w3w12vv!0+$j1kt8yu)p)oxtqvn2ih
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app',"localhost",]
 CSRF_TRUSTED_ORIGINS = ['https://recipee-django.vercel.app']
 CORS_ORIGIN_ALLOW_ALL=True
 
@@ -109,7 +109,7 @@ WSGI_APPLICATION = "enterprise.wsgi.application"
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # "default": {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'recipe',
