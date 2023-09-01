@@ -15,15 +15,10 @@ class User(AbstractUser):
     REQUIRED_FIELDS=[]
 
 class Category(models.Model):
-<<<<<<< HEAD
-    title=models.CharField(max_length=255)
-    img=models.ImageField(upload_to='category')
-=======
     title=models.CharField(max_length=255,unique=True)
     img=models.ImageField(upload_to='category')
     desc=models.TextField()
     active=models.BooleanField(default=0)
->>>>>>> 0e4e428f2db36c4b92145fd9965205803282ecd5
     # img=models.URLField(null=True)
 
     def __str__(self):
@@ -33,25 +28,7 @@ class Ingredient(models.Model):
     IngredientName=models.CharField(max_length=100,unique=True)
 
     def __str__(self):
-<<<<<<< HEAD
-        return self.RecipeName
-    
-
-
-class PopularRecipe(models.Model):
-    recipe=models.ForeignKey(Recipe,on_delete=models.DO_NOTHING)
-    likes=models.IntegerField(default=1)
-
-
-
-# class Ingredient(models.Model):
-#     IngredientName=models.CharField(max_length=100)
-
-#     def __str__(self):
-#         return self.IngredientName
-=======
         return self.IngredientName
->>>>>>> 0e4e428f2db36c4b92145fd9965205803282ecd5
     
 
 # class RecipeIngredient(models.Model):
