@@ -107,9 +107,10 @@ WSGI_APPLICATION = "enterprise.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #  'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
     # "default": {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'recipe',
@@ -117,7 +118,21 @@ DATABASES = {
     #     'PASSWORD': '$admin',
     #     'HOST':'localhost',
     #     'PORT':'3306'
+    # }
+
+
+  "default": {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'verceldb',
+        'USER': 'default',
+        'PASSWORD': 'K2esLJVbCMW9',
+        'HOST':'ep-spring-dawn-37981769-pooler.us-east-1.postgres.vercel-storage.com',
+        'PORT':'5432'
     }
+
+
+
+    
     # "default": {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'recipee-database',
