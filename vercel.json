@@ -7,7 +7,7 @@
     }],
     "routes": [
         {
-            "src": "/(.*)",
+            "src": "/static/(.*)",
             "dest": "enterprise/wsgi.py"
         }
     ]

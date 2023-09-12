@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
+
 # import mysql.connector
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -123,12 +129,11 @@ DATABASES = {
 
   "default": {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'verceldb',
-        'USER': 'default',
-        'PASSWORD': 'K2esLJVbCMW9',
-        'HOST':'ep-spring-dawn-37981769-pooler.us-east-1.postgres.vercel-storage.com',
-        'PORT':'5432'
-    }
+        'NAME':   'verceldb',
+        'USER':   'default',
+    'PASSWORD':   'K2esLJVbCMW9',
+        'HOST':   'ep-spring-dawn-37981769-pooler.us-east-1.postgres.vercel-storage.com',
+        'PORT':   '5432'    }
 
 
 
@@ -192,9 +197,10 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 
-
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+STATICFILES_DIRS = [BASE_DIR/'static',]
+STATIC_ROOT = BASE_DIR/'staticfiles'
+# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 # MEDIA_URL = 'postgres://default:K2esLJVbCMW9@ep-spring-dawn-37981769-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb/media'
 
 # DEFAULT_FILE_STORAGE = 'recipe.custom_azure.AzureMediaStorage'
