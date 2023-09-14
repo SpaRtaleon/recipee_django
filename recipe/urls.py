@@ -17,7 +17,7 @@ urlpatterns = [
     path("recipe/ingre/<int:recipe_id>", GetIngredientForRecipe.as_view(), name="GetIngredientForRecipe"),
     path("recipe/all", GetRecipeAll.as_view(), name="GetRecipeAll"),
     path("recipe/popular", GetPopularRecipe.as_view(), name="getPopularRecipe"),
-    path('recipeFilter/', RecipeByFilterView.as_view(), name='recipesByFilter'),# filter with name,ingredient,category//
+    path('recipe/recipeFilter/', RecipeByFilterView.as_view(), name='recipesByFilter'),# filter with name,ingredient,category//
 
 
     path('register',Register.as_view()),
