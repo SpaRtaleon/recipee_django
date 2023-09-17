@@ -19,7 +19,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
 # import mysql.connector
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,7 +36,7 @@ SECRET_KEY = "django-insecure-j20390g49_du2ak9(#53w3w12vv!0+$j1kt8yu)p)oxtqvn2ih
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app',"localhost",]
+ALLOWED_HOSTS = ['.vercel.app',"localhost",".now.sh"]
 CSRF_TRUSTED_ORIGINS = ['https://recipee-django.vercel.app']
 CORS_ORIGIN_ALLOW_ALL=True
 
@@ -116,18 +117,7 @@ WSGI_APPLICATION = "enterprise.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    #  'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-
-    # "default": {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'recipe',
-    #     'USER': 'root',
-    #     'PASSWORD': '$admin',
-    #     'HOST':'localhost',
-    #     'PORT':'3306'
-    # }
+   
 
 
   "default": {
@@ -140,18 +130,7 @@ DATABASES = {
 
 
 
-    
-    # "default": {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'recipee-database',
-    #     'USER': 'lsizczqzxv',
-    #     'PASSWORD': 'Q33D5PNOF0A0B37B$',
-    #     'HOST':'recipee-server.mysql.database.azure.com',
-    #     'PORT':'3306',
-    #      'OPTIONS': {
-    #         'ssl': {'ca': 'DigiCertGlobalRootG2.crt.pem'}
-    #     }
-    # }
+  
 }
 
 
@@ -201,10 +180,10 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
-# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 # MEDIA_URL = 'postgres://default:K2esLJVbCMW9@ep-spring-dawn-37981769-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb/media'
 
 # DEFAULT_FILE_STORAGE = 'recipe.custom_azure.AzureMediaStorage'
