@@ -33,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-j20390g49_du2ak9(#53w3w12vv!0+$j1kt8yu)p)oxtqvn2ih"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app',"localhost",]
 CSRF_TRUSTED_ORIGINS = ['https://recipee-django.vercel.app']
@@ -200,10 +200,10 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 
-# STATICFILES_DIRS = [BASE_DIR/'static/',]
-# STATIC_ROOT = BASE_DIR/'staticfiles'
+STATICFILES_DIRS = [BASE_DIR/'static',]
+STATIC_ROOT = BASE_DIR/'staticfiles'
 # STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 # MEDIA_URL = 'postgres://default:K2esLJVbCMW9@ep-spring-dawn-37981769-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb/media'
 
 # DEFAULT_FILE_STORAGE = 'recipe.custom_azure.AzureMediaStorage'
