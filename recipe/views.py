@@ -1,13 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from .models import Category,Recipe, RecipeIngredient,User,PopularRecipe
+from .models import Category,Recipe, RecipeIngredient,User,PopularRecipe,Ingredient
 from django.core import serializers
 from django.db.models import Q,Count
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
-from .serializer.serialize import RecipeIngredientSerializer,UserSerializer,CategorySerializer,CategoryRecipeSerializer,RecipeSerializer,popularRecipeSerializer
+from .serializer.serialize import IngredientSerializer, RecipeIngredientSerializer,UserSerializer,CategorySerializer,CategoryRecipeSerializer,RecipeSerializer,popularRecipeSerializer
 import jwt,datetime
 
 class Register(APIView):
@@ -130,6 +130,11 @@ class GetPopularRecipe(APIView):
             }
             popular_recipe_data.append(recipe_data)
         return Response(popular_recipe_data)
+    
+class GetIngredientsList(APIView):
+    def get(self,request):
+        ingredients=IngredientSerializer(Ingredient.objects.all(),many=True)
+        return Response(ingredients.data)
 
 class RecipeByFilterView(APIView):
     def get(self, request):

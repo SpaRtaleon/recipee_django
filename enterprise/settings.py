@@ -13,9 +13,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 import environ
+import dj_database_url
 
-env = environ.Env()
-environ.Env.read_env()
+from dotenv import load_dotenv
+load_dotenv()
+
 
 
 # import mysql.connector
@@ -84,6 +86,7 @@ CORS_ALLOWED_ORIGINS = [
 "http://localhost:4200",
 ]
 
+CORS_ALLOW_CREDENTIALS = True
 # CORS_ALLOWED_ORIGIN_REGEXES = [
 #     r"^https://\w+\.example\.com$",
 # ]
@@ -128,12 +131,12 @@ DATABASES = {
 
 
   "default": {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME':   'verceldb',
-        'USER':   'default',
-    'PASSWORD':   'K2esLJVbCMW9',
-        'HOST':   'ep-spring-dawn-37981769-pooler.us-east-1.postgres.vercel-storage.com',
-        'PORT':   '5432'    }
+         'ENGINE':  os.environ.get('DBENGINE'), #
+        'NAME':    os.environ.get('DBNAME'),
+        'USER':    os.environ.get('DBUSER'),
+    'PASSWORD':    os.environ.get('DBPASSWORD'),
+        'HOST':    os.environ.get('DBHOST'),
+        'PORT':    os.environ.get('DBPORT'),   }
 
 
 
