@@ -14,14 +14,16 @@ import os
 from pathlib import Path
 import environ
 import dj_database_url
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from dotenv import load_dotenv
 load_dotenv()
-
-
-
-# import mysql.connector
-
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET')
+}
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -38,8 +40,10 @@ ALLOWED_HOSTS = ['.vercel.app',"localhost",]
 CSRF_TRUSTED_ORIGINS = ['https://recipee-django.vercel.app']
 CORS_ORIGIN_ALLOW_ALL=True
 
-# Application definition
 
+
+
+# Application definition
 INSTALLED_APPS = [
     "recipe.apps.RecipeConfig",
     "django.contrib.admin",
@@ -50,7 +54,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
+    'cloudinary_storage',
+    'cloudinary',
     
     
     "storages",
@@ -168,6 +173,9 @@ STATIC_ROOT = os.path.join(
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
+
+MEDIA_URL = '/media/'  # or any prefix you choose
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
