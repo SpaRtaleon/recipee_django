@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
-import environ
-import dj_database_url
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -56,7 +54,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'cloudinary_storage',
     'cloudinary',
-    
     
     "storages",
 ]
@@ -175,7 +172,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 
 MEDIA_URL = '/media/'  # or any prefix you choose
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = os.environ.get('DEFAULT_FILE_STORAGE')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -193,17 +190,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-# MEDIA_URL = 'postgres://default:K2esLJVbCMW9@ep-spring-dawn-37981769-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb/media'
 
-# DEFAULT_FILE_STORAGE = 'recipe.custom_azure.AzureMediaStorage'
-# # STATICFILES_STORAGE = 'recipe.custom_azure.AzureStaticStorage'
-# # STATIC_LOCATION = "static"
 MEDIA_LOCATION = "media"
 
-# AZURE_ACCOUNT_NAME = "recipeestorage"
-# AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-# # STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-# MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+
