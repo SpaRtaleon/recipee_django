@@ -12,16 +12,17 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
-import mysql.connector
+
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dxfl0ss2d',
-    'API_KEY': '836199762877184',
-    'API_SECRET': 'sjLbtLoOuOX9Mn6MhTgj-5dDAfo'
-}
+from dotenv import load_dotenv
+load_dotenv()
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+#     'API_KEY': os.environ.get('API_KEY'),
+#     'API_SECRET': os.environ.get('API_SECRET')
+# }
 
 
 
@@ -158,12 +159,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
-
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build')
+STATIC_ROOT = os.path.join(
+    BASE_DIR, 'staticfiles', 'static')#for production
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 
 MEDIA_URL = '/media/'  # or any prefix you choose
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = os.environ.get('DEFAULT_FILE_STORAGE')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -173,6 +179,9 @@ AUTH_USER_MODEL='recipe.User'
 
 
 
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
 
 MEDIA_LOCATION = "media"
 
