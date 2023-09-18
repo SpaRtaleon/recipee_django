@@ -126,7 +126,7 @@ class GetPopularRecipe(APIView):
                 "recipe_id":recipe_id,
                 "recipe_name": recipe.RecipeName,
                 "likes": popular_recipe.likes,
-                "image_url": recipe.ImageUrl,  # Replace with the actual field name
+                "image_thumbnail": recipe.image_thumbnail,  # Replace with the actual field name
             }
             popular_recipe_data.append(recipe_data)
         return Response(popular_recipe_data)
