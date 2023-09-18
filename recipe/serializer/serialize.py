@@ -4,7 +4,7 @@ from ..models import User,Category,Recipe,PopularRecipe,Ingredient,RecipeIngredi
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
-        fields=["username","email","phoneNumber","password","active"]
+        fields=["username","email","phoneNumber","password","active","fav"]
         extra_kwargs={
             'password':{'write_only':True}
         }

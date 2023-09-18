@@ -13,6 +13,18 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 import mysql.connector
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dxfl0ss2d',
+    'API_KEY': '836199762877184',
+    'API_SECRET': 'sjLbtLoOuOX9Mn6MhTgj-5dDAfo'
+}
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +54,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    
+    'cloudinary_storage',
+    'cloudinary',
     
     "storages",
 ]
@@ -147,6 +160,10 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+
+
+MEDIA_URL = '/media/'  # or any prefix you choose
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -156,12 +173,6 @@ AUTH_USER_MODEL='recipe.User'
 
 
 
-DEFAULT_FILE_STORAGE = 'recipe.custom_azure.AzureMediaStorage'
-# STATICFILES_STORAGE = 'recipe.custom_azure.AzureStaticStorage'
-# STATIC_LOCATION = "static"
+
 MEDIA_LOCATION = "media"
 
-AZURE_ACCOUNT_NAME = "recipeestorage"
-AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-# STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
