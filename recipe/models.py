@@ -65,7 +65,7 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField(Ingredient, through='RecipeIngredient')
     IngredientDesc = models.TextField(null=True)
     RecipeInfo = models.TextField(null=True)
-    ImageUrl = models.ImageField(upload_to='RecipeImg')
+    ImageUrl = models.ImageField(upload_to='RecipeImg',null=False)
     videoUrl = models.FileField(null=True)
     active=models.BooleanField(default=0)
     Recipe_Procedure = models.TextField(null=True)
