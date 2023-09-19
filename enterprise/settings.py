@@ -120,17 +120,14 @@ DATABASES = {
    
 
 
-  "default": {
-         'ENGINE':  os.environ.get('DBENGINE'), #
-        'NAME':    os.environ.get('DBNAME'),
-        'USER':    os.environ.get('DBUSER'),
-    'PASSWORD':    os.environ.get('DBPASSWORD'),
-        'HOST':    os.environ.get('DBHOST'),
-        'PORT':    os.environ.get('DBPORT'),   }
-
-
-
-  
+    "default": {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'recipe',
+        'USER': 'root',
+        'PASSWORD': '$admin',
+        'HOST':'localhost',
+        'PORT':'3306'
+    }
 }
 
 
@@ -172,7 +169,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 
 MEDIA_URL = '/media/'  # or any prefix you choose
-DEFAULT_FILE_STORAGE = os.environ.get('DEFAULT_FILE_STORAGE')
+# DEFAULT_FILE_STORAGE = os.environ.get('DEFAULT_FILE_STORAGE')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
