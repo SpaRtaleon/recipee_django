@@ -85,6 +85,7 @@ CORS_ALLOW_HEADERS = (
 
 CORS_ALLOWED_ORIGINS = [
 "http://localhost:4200",
+"https://recipee-angular.vercel.app"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
