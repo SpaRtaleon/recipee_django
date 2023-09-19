@@ -36,7 +36,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['.vercel.app',"localhost",]
 CSRF_TRUSTED_ORIGINS = ['https://recipee-django.vercel.app']
-CORS_ORIGIN_ALLOW_ALL=True
+
 
 
 
