@@ -21,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model=Category
-        fields=["id","title","image_thumbnail","active"]
+        fields=["id","title","img","active","desc"]
     def create(self,validated_data):
         title=validated_data.pop('title',None)
         instance=self.Meta.model(**validated_data)
@@ -31,7 +31,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class CategoryRecipeSerializer(serializers.ModelSerializer):
     class Meta:     #for card /limited data 
         model=Recipe
-        fields=['id','RecipeName','RecipeDesc','Category','Difficulty_Level','DurationTime','image_thumbnail','active']
+        fields=['id','RecipeName','RecipeDesc','Category','Difficulty_Level','DurationTime','ImageUrl','active']
 
 
 

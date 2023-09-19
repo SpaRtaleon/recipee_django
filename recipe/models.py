@@ -1,35 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from PIL import Image
-from io import BytesIO
-from django.core.files.uploadedfile import InMemoryUploadedFile
 # Create your models here.
 
-def create_thumbnail(image,route ):
-    img = Image.open(image)
-    size= (192,160) if(route=="recipe") else (200,200)
-    # Ensure the image format is RGB
-    if img.mode != 'RGB':
-        img = img.convert('RGB')
-
-    # Create the thumbnail
-    img.thumbnail(size)
-
-    # Save the thumbnail to a BytesIO buffer
-    thumb_buffer = BytesIO()
-    img.save(thumb_buffer, 'JPEG')
-
-    # Create an InMemoryUploadedFile from the buffer
-    thumb_file = InMemoryUploadedFile(
-        thumb_buffer,
-        None,  # Field name (not needed)
-        image.name,  # File name
-        'image/jpeg',  # Content type
-        thumb_buffer.tell,
-        None
-    )
-
-    return thumb_file
 
 class User(AbstractUser):
     username=models.CharField(unique=True, max_length=200)
@@ -47,14 +19,8 @@ class Category(models.Model):
     img=models.ImageField(upload_to='category')
     desc=models.TextField()
     active=models.BooleanField(default=0)
-    image_thumbnail = models.ImageField(upload_to='category/thumbnails', blank=True, null=True)
     # img=models.URLField(null=True)
 
-    def save(self, *args, **kwargs):
-    # Create a thumbnail before saving
-        if self.img:
-            self.image_thumbnail = create_thumbnail(self.img,'category')
-        super().save(*args, **kwargs)
     def __str__(self):
         return self.title
 
@@ -99,21 +65,14 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField(Ingredient, through='RecipeIngredient')
     IngredientDesc = models.TextField(null=True)
     RecipeInfo = models.TextField(null=True)
-    ImageUrl = models.ImageField(upload_to='recipes',null=True)
+    ImageUrl = models.URLField(null=True)
     videoUrl = models.URLField(null=True)
     active=models.BooleanField(default=0)
     Recipe_Procedure = models.TextField(null=True)
     RecipeDesc = models.TextField(null=True)
     creatAt= models.DateTimeField(auto_now=True)
     # url=models.URLField(default="https://cdn-icons-png.flaticon.com/512/138/138572.png?w=740&t=st=1688529709~exp=1688530309~hmac=6d164b528c048db5a9443e5a0a392f9fe970687db39c133b517e14c14cf258cf",max_length=255)
-    image_thumbnail = models.ImageField(upload_to='recipes/thumbnails', blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        # Create a thumbnail before saving
-        if self.ImageUrl:
-            self.image_thumbnail = create_thumbnail(self.ImageUrl,"recipe")
-        super().save(*args, **kwargs)
-
+    
     def __str__(self):
         return self.RecipeName
     
