@@ -118,15 +118,19 @@ class GetRecipeAll(APIView):
 class GetPopularRecipe(APIView):
     def get(self,request):
         popular_recipes = PopularRecipe.objects.order_by('-likes')[:10]
+        print(popular_recipes)
         popular_recipe_data = []
         for popular_recipe in popular_recipes:
             recipe_id = popular_recipe.recipe_id
             recipe = Recipe.objects.get(pk=recipe_id)
+            print(f"Recipe ID: {recipe_id}")
+            print(f"Recipe Image URL: {recipe.ImageUrl}")
+            imgurl=str(recipe.ImageUrl)
             recipe_data = {
                 "recipe_id":recipe_id,
                 "recipe_name": recipe.RecipeName,
                 "likes": popular_recipe.likes,
-                "ImageUrl": recipe.ImageUrl,  
+                "ImageUrl": "https://res.cloudinary.com/dxfl0ss2d/image/upload/v1/"+imgurl,  
             }
             popular_recipe_data.append(recipe_data)
         return Response(popular_recipe_data)
