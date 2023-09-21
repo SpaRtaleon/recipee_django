@@ -2,3 +2,4 @@
 custom_azure.py
 _pychache_/
 migrations/
+.env
