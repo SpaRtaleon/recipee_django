@@ -9,7 +9,7 @@ class User(AbstractUser):
     phoneNumber = models.CharField(max_length=200)
     password=models.CharField(max_length=255)
     active=models.BooleanField(default=0)
-    fav=models.ForeignKey('Recipe',null=True, on_delete=models.CASCADE)
+    # fav=models.ForeignKey('Recipe',null=True, on_delete=models.CASCADE)
     # username=None
     # USERNAME_FIELD='email'
     REQUIRED_FIELDS=[]
