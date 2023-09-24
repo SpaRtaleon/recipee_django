@@ -26,7 +26,7 @@ class Category(models.Model):
 
 class Ingredient(models.Model):
     IngredientName=models.CharField(max_length=100,unique=True)
-
+    IngredientImg=models.ImageField(upload_to='Ingredients',default='https://res.cloudinary.com/dxfl0ss2d/image/upload/v1695567602/media/dwt2cui6dmgf7kn3ezem.svg')
     def __str__(self):
         return self.IngredientName
     
@@ -66,7 +66,7 @@ class Recipe(models.Model):
     IngredientDesc = models.TextField(null=True)
     RecipeInfo = models.TextField(null=True)
     ImageUrl = models.ImageField(upload_to='RecipeImg',null=False)
-    videoUrl = models.FileField(null=True)
+    videoUrl = models.FileField(null=True,default="https://res.cloudinary.com/dxfl0ss2d/image/upload/v1695567764/media/bkrr6wgzfj8eavupcce5.svg")
     active=models.BooleanField(default=0)
     Recipe_Procedure = models.TextField(null=True)
     RecipeDesc = models.TextField(null=True)

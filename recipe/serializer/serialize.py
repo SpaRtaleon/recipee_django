@@ -39,7 +39,7 @@ class CategoryRecipeSerializer(serializers.ModelSerializer):
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:                 #ingredient table with name ,id,unit
         model = Ingredient
-        fields =[ 'IngredientName']
+        fields =[ 'IngredientName','IngredientImg']
 
 
 
