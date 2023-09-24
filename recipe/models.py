@@ -26,7 +26,7 @@ class Category(models.Model):
 
 class Ingredient(models.Model):
     IngredientName=models.CharField(max_length=100,unique=True)
-    IngredientImg=models.ImageField(upload_to='Ingredients',default='https://res.cloudinary.com/dxfl0ss2d/image/upload/v1695567602/media/dwt2cui6dmgf7kn3ezem.svg')
+    IngredientImg=models.ImageField(upload_to='Ingredients',default='dwt2cui6dmgf7kn3ezem.svg')
     def __str__(self):
         return self.IngredientName
     
