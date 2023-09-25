@@ -30,7 +30,7 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.IngredientName
     
-
+# 
 # class RecipeIngredient(models.Model):
 #     recipeId=models.ForeignKey(Recipe,on_delete=models.DO_NOTHING)
 #     ingredientId=models.OneToOneField(Ingredient,on_delete=models.DO_NOTHING)
