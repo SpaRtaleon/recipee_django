@@ -34,7 +34,7 @@ SECRET_KEY = "django-insecure-j20390g49_du2ak9(#53w3w12vv!0+$j1kt8yu)p)oxtqvn2ih
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app',"localhost",]
+ALLOWED_HOSTS = ['.vercel.app',]
 CSRF_TRUSTED_ORIGINS = ['https://recipee-django.vercel.app']
 
 
@@ -84,7 +84,6 @@ CORS_ALLOW_HEADERS = (
 
 
 CORS_ALLOWED_ORIGINS = [
-"http://localhost:4200",
 "https://recipee-angular.vercel.app",
 "https://recipee.in"
 ]
