@@ -23,7 +23,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
-
+ 
 class Ingredient(models.Model):
     IngredientName=models.CharField(max_length=100,unique=True)
     IngredientImg=models.ImageField(upload_to='Ingredients',default='dwt2cui6dmgf7kn3ezem.svg')
